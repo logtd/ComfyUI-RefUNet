@@ -1,6 +1,10 @@
 # ComfyUI-RefUNet
 A set of nodes to use Reference UNets
 
+
+https://github.com/user-attachments/assets/5c921956-7bf2-4521-a8bf-1c8594b46641
+
+
 Should be compatible with sampling methods that use reference unets, e.g.:
 * [FollowYourEmoji](https://github.com/mayuelala/FollowYourEmoji)
 * [MusePose](https://github.com/TMElyralab/MusePose)
