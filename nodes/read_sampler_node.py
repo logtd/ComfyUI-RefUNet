@@ -16,7 +16,7 @@ class ReadSamplerNode:
             "ref_bank": ("REF_BANK",)
         }, "optional": {
             "sampler": ("SAMPLER",),
-            "opt_attn_map": ("ATTN_MAP",),
+            # "opt_attn_map": ("ATTN_MAP",),
         }}
     RETURN_TYPES = ("SAMPLER",)
     FUNCTION = "build"
