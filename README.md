@@ -15,3 +15,17 @@ You can find examples of FollowYourEmoji in the `example_workflows` directory us
 
 https://github.com/user-attachments/assets/6b2bf9b2-8c4e-4b6b-a65d-228dc293563d
 
+## Installation
+There are no specific python requirements for this repo.
+
+### Models
+You can find the models for FollowYourEmoji here https://huggingface.co/Kijai/FollowYourEmoji-safetensors/tree/main
+
+FYE_unet-fp16.safetensors
+
+| Checkpoint | Directory |
+|------------|-----------|
+|FYE_unet-fp16.safetensors            |   unet |
+|FYE_referencenet-fp16.safetensors    |   unet |
+|fye_motion_module-fp16.safetensors   |  animatediff_models |
+| sd-image-variations-encoder-fp16.safetensors | clip_vision |
