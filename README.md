@@ -21,8 +21,6 @@ There are no specific python requirements for this repo.
 ### Models
 You can find the models for FollowYourEmoji here https://huggingface.co/Kijai/FollowYourEmoji-safetensors/tree/main
 
-FYE_unet-fp16.safetensors
-
 | Checkpoint | Directory |
 |------------|-----------|
 |FYE_unet-fp16.safetensors            |   unet |
