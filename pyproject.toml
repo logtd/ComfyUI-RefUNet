@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-refunet"
+description = "A set of nodes to use Reference UNets"
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/logtd/ComfyUI-RefUNet"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-RefUNet"
+Icon = ""
