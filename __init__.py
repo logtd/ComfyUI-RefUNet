@@ -1,3 +1,6 @@
+import os
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+
 from .nodes.configure_ref_net_node import ConfigureRefNetNode
 from .nodes.prepare_ref_latents import PrepareRefLatentsNode
 from .nodes.read_sampler_node import ReadSamplerNode
@@ -5,6 +8,7 @@ from .nodes.write_sampler_node import WriteSamplerNode
 from .nodes.ref_bank_node import CreateRefBankNode
 from .nodes.ref_model_pred_node import RefModelSamplingPredNode
 from .nodes.custom_ref_map_node import ConfigRefMapAdvNode, CustomRefMapSD1Node
+from .nodes.vision_clip_encode_node import VisionClipEncodeNode
 
 
 NODE_CLASS_MAPPINGS = {
@@ -16,6 +20,7 @@ NODE_CLASS_MAPPINGS = {
     "RefModelSamplingPred": RefModelSamplingPredNode,
     "CustomRefMapSD1": CustomRefMapSD1Node,
     "ConfigRefMapAdv": ConfigRefMapAdvNode,
+    "VisionClipEncode": VisionClipEncodeNode,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -27,4 +32,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "RefModelSamplingPred": "REF] Model Sampling Pred",
     "CustomRefMapSD1": "REF] Ref Attn Map SD1",
     "ConfigRefMapAdv": "REF] Ref Attn Map Adv",
+    "VisionClipEncode": "Clip Vision Encode Cond"
 }

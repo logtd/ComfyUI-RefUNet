@@ -23,7 +23,7 @@ def get_stepper(model, model_options, sigmas, start_percent, end_percent):
     return sample_step
 
 
-def create_sampler(sample_fn, ref_bank, ref_map, ref_type, start_percent=0, end_percent=1):
+def create_sampler(sample_fn, ref_bank, ref_map, ref_type, start_percent=0, end_percent=1, mask_dilation=0, masks=None):
     @torch.no_grad()
     def sample(model, latents, sigmas, extra_args=None, callback=None, disable=None, **extra_options):
         model_options = extra_args.get('model_options', {})
@@ -41,6 +41,8 @@ def create_sampler(sample_fn, ref_bank, ref_map, ref_type, start_percent=0, end_
                 'REF_TYPE': ref_type,
                 'REF_BANK': ref_bank,
                 'TOTAL_STEPS': len(sigmas),
+                'REF_MASK': masks,
+                'REF_MASK_DILATION': mask_dilation,
             }
         }
         extra_args = {**extra_args, 'model_options': model_options}

@@ -1,8 +1,10 @@
+from einops import rearrange
 import torch
 from comfy.ldm.modules.attention import BasicTransformerBlock
 from comfy.ldm.modules.diffusionmodules.openaimodel import UNetModel
 
 from ..utils.module_utils import isinstance_str
+from ..utils.dilate_mask import dilate_mask
 
 
 class RefTransformerBlock(BasicTransformerBlock):
@@ -52,7 +54,10 @@ class RefTransformerBlock(BasicTransformerBlock):
 
         if ref_type == 'WRITE' and ref_bank is not None and self.block_idx in ref_bank and ref_on:
             for idx, cond in enumerate(conds):
-                ref_bank[self.block_idx][cond] = n[idx*n_frames:(idx+1)*n_frames].clone().cpu()
+                ref_n = dilate_mask(n[idx*n_frames:(idx+1)*n_frames], transformer_options)
+                ref_n = rearrange(ref_n, '(b f) d h -> b (f d) h', b=1)
+                ref_bank[self.block_idx][cond] = ref_n.cpu()
+                ref_bank['num_write'] = len(n)
         elif ref_type == 'READ' and ref_bank is not None and self.block_idx in ref_bank and ref_on:
             ref_n = []
             for idx, cond in enumerate(conds):
@@ -61,7 +66,8 @@ class RefTransformerBlock(BasicTransformerBlock):
                     if cond == 1:
                         REF_UNCOND_READ = True
                 else:
-                    ref_n.append(context_attn1[idx*n_frames:(idx+1)*n_frames]) # TODO make this faster
+
+                    ref_n.append(context_attn1[idx*n_frames:(idx+1)*n_frames].repeat(1, ref_bank['num_write'], 1)) # TODO make this faster
             ref_n = torch.cat(ref_n)
             context_attn1 = torch.cat([context_attn1, ref_n], dim=1)
 

@@ -20,22 +20,24 @@ class WriteSamplerNode:
             "sampler_name": (["REFERENCE_WRITE"] +  comfy.samplers.SAMPLER_NAMES, ),
             "start_percent": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.01}),
             "end_percent": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
-            "ref_bank": ("REF_BANK",)
+            "ref_bank": ("REF_BANK",),
+            "mask_dilation": ("INT", {"default": 3, "min": 0, "max": 10, "step": 1}),
         }, "optional": {
             "sampler": ("SAMPLER",),
             "opt_attn_map": ("ATTN_MAP",),
+            "masks": ("MASK",),
         }}
     RETURN_TYPES = ("SAMPLER","SIGMAS")
     FUNCTION = "build"
 
     CATEGORY = "reference/sampling"
 
-    def build(self, sampler_name, start_percent, end_percent, ref_bank, sampler=None, opt_attn_map=SD1_REF_MAP):
+    def build(self, sampler_name, start_percent, end_percent, ref_bank, mask_dilation, sampler=None, opt_attn_map=SD1_REF_MAP, masks=None):
         if sampler_name == 'REFERENCE_WRITE':
             sampler_fn = sample_write
         else:
             sampler_fn = get_sampler_fn(sampler_name)
-        sampler_fn = create_sampler(sampler_fn, ref_bank, opt_attn_map, 'WRITE', start_percent, end_percent)
+        sampler_fn = create_sampler(sampler_fn, ref_bank, opt_attn_map, 'WRITE', start_percent, end_percent, mask_dilation, masks)
         
         if sampler is None:
             sampler = KSAMPLER(sampler_fn)
